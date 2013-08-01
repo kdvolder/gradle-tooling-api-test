@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+apiVersion = 1.6 // Gradle api version
+
+sourceCompatibility = 1.6 // Java source compat
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}
+
+
+repositories {
+	mavenRepo name: 'libs-repo-snap', urls: "http://repo.gradle.org/gradle/libs-snapshots"
+	mavenRepo name: 'libs-repo', urls:  "http://repo.gradle.org/gradle/libs-releases"
+}
+
+dependencies {
+	//compile group:'org.gradle', name:'gradle-core'//, version:'1.0-milestone-3-20110414154452+1000'
+	compile "org.gradle:gradle-core:$apiVersion",
+			"org.gradle:gradle-tooling-api:$apiVersion",
+			"org.gradle:gradle-wrapper:$apiVersion",
+			'org.slf4j:slf4j-simple:1.6.6',
+			'commons-collections:commons-collections:3.2.1'
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
